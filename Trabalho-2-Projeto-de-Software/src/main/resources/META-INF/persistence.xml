@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<persistence 
+      version="2.0" 
+      xmlns="http://java.sun.com/xml/ns/persistence" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
+                          http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+  <persistence-unit name="exercicio" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+			<property name="hibernate.archive.autodetection" value="class"/>
+			<property name="hibernate.show_sql"              value="true"/>
+			<property name="hibernate.format_sql"            value="true"/>
+
+           <property name="javax.persistence.jdbc.driver"   value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/olimp"/>
+            <property name="javax.persistence.jdbc.user"     value="root"/>
+            <property name="javax.persistence.jdbc.password" value="1234"/>
+
+			<property name="hibernate.dialect"               value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+<!-- 
+            Como configurar o hibernate para ele utilizar o pool de conexões do Tomcat:
+	  
+      	    <property name="hibernate.connection.datasource" 
+      	              value="java:/comp/env/jdbc/pool" />
+
+	        Alternativamente é  possível configurar a JPA para que  seja  utilizado  um
+	        Pool de conexões denominado C3P0.  Trata-se  de  um  pool de  conexões  bem 
+	        melhor do que o que vem embutido no Hibernate.
+
+	        O número mínimo de  conexões JDBC que C3P0 manterá abertas, isto é, prontas 
+	        para uso. 
+-->
+      	    <property name="hibernate.c3p0.min_size" value="5" />
+
+<!--        O número máximo de conexões no pool. Uma exceção será propagada em tempo de
+            execução se este número for superado. 
+-->
+      	    <property name="hibernate.c3p0.max_size" value="20" />
+
+<!--        O tempo que leva  para uma  conexão  sem uso ser  removida do  pool:  neste 
+            caso, 10 minutos ou 600 segundos. 
+-->
+      	    <property name="hibernate.c3p0.timeout" value="600" />
+
+<!--        O  número máximo  de  prepared  statements  que  sofrerão cache. O cache de
+            PreparedStatements  é  essencial  para  se  obter o melhor desempenho com o 
+            Hibernate. 
+-->
+      	    <property name="hibernate.c3p0.max_statements" value="50" />
+
+<!--        O  tempo  em  segundos  que  leva  para  que  uma  conexão fora de uso seja
+            automaticamente validada. Neste caso, 6 minutos. 
+
+      	    <property name="hibernate.c3p0.idle_test_period" value="360" />
+-->      
+					  
+		</properties>
+	</persistence-unit>
+</persistence>

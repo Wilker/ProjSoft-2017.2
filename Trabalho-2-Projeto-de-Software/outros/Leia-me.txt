@@ -1,0 +1,19 @@
+Trabalhando com a JPA é preciso fazer o seguinte:
+
+- Apenas os métodos que executam comandos DML precisam ser transacionais. Os métodos 
+  de leitura não precisam ser transacioanis. Toda vez que um método de um DAO não 
+  transacional é executado, é utilizado um novo entity manager. Se o método não for
+  transacional haverá um novo entity manager, mas não haverá uma transação.
+  
+- Podem ser anotados como transacioanais apenas os métodos dos DAOs (classes concretas
+  ou interfaces) e/ou os métodos das classes de servico. Sugerimos que sejam anotados 
+  apenas os métodos transacionais das classes de servico.
+  
+- Para que o entityManager seja injetado automaticamente nos DAOs é preciso anotar o campo
+  entityManager (protected) da classe LanceDAOImpl e ProdutoDAOImpl com @AutoWired, e é 
+  preciso acrescentar o elemento xml abaixo no arquivo de configuração do Spring para que 
+  o Spring procure pela anotação @AutoWired nas classes do projeto:
+  
+    <context:annotation-config />
+
+- Caso algum método de serviço seja transacional, deverá ser anotado com @Transactional.
